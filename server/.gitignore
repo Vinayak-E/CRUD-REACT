@@ -1,20 +1,10 @@
-
 node_modules/
-npm-debug.log
 
-# Environment Variables
+*.tsbuildinfo
+dist/
 .env
 
-# Client-side build artifacts (for React, Vue, etc.)
-client/build/
-client/node_modules/
 
-# Server-side build artifacts (if any)
-server/node_modules/
-
-# IDE and editor directories
-.vscode/
-.idea/
 
 # Logs
 *.log
@@ -22,3 +12,10 @@ server/node_modules/
 # OS-specific files
 .DS_Store
 Thumbs.db
+
+# IDE and editor files
+.vscode/
+.idea/
+
+# npm-debug logs
+npm-debug.log*
