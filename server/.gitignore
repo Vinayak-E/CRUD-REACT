@@ -1,0 +1,24 @@
+
+node_modules/
+npm-debug.log
+
+# Environment Variables
+.env
+
+# Client-side build artifacts (for React, Vue, etc.)
+client/build/
+client/node_modules/
+
+# Server-side build artifacts (if any)
+server/node_modules/
+
+# IDE and editor directories
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
