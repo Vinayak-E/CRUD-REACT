@@ -4,14 +4,31 @@ import bcrypt from 'bcryptjs'
 
 
 export const getUsers = async (req: Request, res: Response): Promise<any> => {
-    try {
-        const users = await User.find({ isAdmin: false })
-        return res.status(200).json({ users })
+  try {
+    const { query } = req.query;
+    let users;
 
-    } catch (error) {
-
+    if (query) {
+      users = await User.find({
+        $and: [
+          { isAdmin: false },
+          {
+            $or: [
+              { name: { $regex: query, $options: 'i' } },
+              { email: { $regex: query, $options: 'i' } },
+            ],
+          },
+        ],
+      });
+    } else {
+      users = await User.find({ isAdmin: false });
     }
-}
+
+    return res.status(200).json({ users });
+  } catch (error) {
+    return res.status(500).json({ message: 'Error fetching users' });
+  }
+};
 
 export const addUser = async(req: Request, res: Response): Promise<any> => {
     const { name, email, isAdmin,password } = req.body;
@@ -38,13 +55,12 @@ export const addUser = async(req: Request, res: Response): Promise<any> => {
     const { name, email, isAdmin } = req.body;
   
     try {
-      // Find the user to be updated
+
       const user = await User.findById(userId);
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
-  
-      // Only check for duplicate email if it's being changed
+
       if (email && email !== user.email) {
         const existingUser = await User.findOne({ email });
         if (existingUser) {
