@@ -12,7 +12,7 @@ interface User {
   _id: string;
   name: string;
   email: string;
-  isAdmin?: boolean;
+  isAdmin: boolean;
   password?: string;
 }
 
@@ -35,7 +35,7 @@ const AdminDashboard: React.FC = () => {
     try {
       setIsLoading(true);
       setError(null);
-      const response = await api.get(`/api/admin/getUsers?query=${query}`);
+      const response = await api.get<{users:User[]}>(`/api/admin/getUsers?query=${query}`);
       setUsers(response.data.users);
     } catch (error) {
       setError('Error fetching users. Please try again later.');
