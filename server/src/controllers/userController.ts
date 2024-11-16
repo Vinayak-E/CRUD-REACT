@@ -132,7 +132,7 @@ export const getUserData =  async (req: Request, res: Response): Promise<void>  
           return
       }
     
-      console.log(email,'email new req call')
+      console.log(email,'email new req  1 call')
       const user = await User.findOne({email})
       if (!user) {
        res.status(400).json({ message: 'Invalid email' });
